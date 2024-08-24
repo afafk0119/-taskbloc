@@ -10,6 +10,8 @@ abstract class TaskState extends Equatable {
 
 class TaskInitial extends TaskState {}
 
+class TaskLoadInProgress extends TaskState {}
+
 class TaskLoadSuccess extends TaskState {
   final List<Task> tasks;
 
@@ -17,4 +19,13 @@ class TaskLoadSuccess extends TaskState {
 
   @override
   List<Object> get props => [tasks];
+}
+
+class TaskLoadFailure extends TaskState {
+  final String error;
+
+  const TaskLoadFailure(this.error);
+
+  @override
+  List<Object> get props => [error];
 }

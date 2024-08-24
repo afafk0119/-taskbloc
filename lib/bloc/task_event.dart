@@ -16,3 +16,5 @@ class CreateTask extends TaskEvent {
   @override
   List<Object> get props => [task];
 }
+
+class LoadTasks extends TaskEvent {}

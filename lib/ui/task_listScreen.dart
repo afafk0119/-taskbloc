@@ -18,7 +18,9 @@ class TaskListScreen extends StatelessWidget {
       ),
       body: BlocBuilder<TaskBloc, TaskState>(
         builder: (context, state) {
-          if (state is TaskLoadSuccess) {
+          if (state is TaskLoadInProgress) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is TaskLoadSuccess) {
             if (state.tasks.isEmpty) {
               return Center(child: Text('No tasks available.'));
             }
@@ -42,10 +44,11 @@ class TaskListScreen extends StatelessWidget {
                 );
               },
             );
-          } else if (state is TaskInitial) {
+          } else if (state is TaskLoadFailure) {
+            return Center(child: Text(state.error));
+          } else {
             return Center(child: Text('Welcome! Start by creating a task.'));
           }
-          return Center(child: CircularProgressIndicator());
         },
       ),
       floatingActionButton: FloatingActionButton(
